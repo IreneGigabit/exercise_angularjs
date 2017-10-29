@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - [AngularJS]AngularJS 入門教學 - Controller</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("ShowHideCtrl", function ($scope) {
+            $scope.checked = false;
+            $scope.eng = '男丁格爾';
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span6" ng-controller="ShowHideCtrl">
+        <label>Show?
+            <input type="checkbox" ng-model="checked">
+        </label>
+        <label>English?
+            <input type="checkbox" ng-model="eng" ng-true-value="'abgne.tw'" ng-false-value="'男丁格爾'">
+        </label>
+        <h2 ng-show="checked">{{ eng }}</h2>
+        <hr>
+        <h2 ng-hide="checked">相反...</h2>
+    </div>
+</body>
+
+</html>
