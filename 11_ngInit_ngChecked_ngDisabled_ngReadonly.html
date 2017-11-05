@@ -1,0 +1,101 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngInit, ngChecked, ngDisabled 及 ngReadonly</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("MembersCtrl", function ($scope) {
+            $scope.members = {
+                '船長': {
+                    name: '蒙其·D·魯夫',
+                    age: 19,
+                    skills: ['橡膠槍', '橡膠火箭砲', '換檔', '霸氣']
+                },
+                '劍士': {
+                    name: '羅羅亞·索隆',
+                    age: 21,
+                    skills: ['無刀流', '煩惱鳳', '阿修羅', '霸氣']
+                },
+                '航海士': {
+                    name: '娜美',
+                    age: 20,
+                    skills: ['天候棒', '魔法天候棒', '棍術']
+                },
+                '狙擊手': {
+                    name: '騙人布',
+                    age: 19,
+                    skills: ['鐵鎚', '超巨大火鳥星', '必殺‧鐵人彗星']
+                },
+                '廚師': {
+                    name: '香吉士',
+                    age: 21,
+                    skills: ['肩肉 SHOOT', '惡魔風腳', '六式', '霸氣']
+                },
+                '船醫': {
+                    name: '多尼多尼·喬巴',
+                    age: 17,
+                    skills: ['腳力強化', '頭腦強化', '彈力強化', '毛皮強化', '腕力強化']
+                },
+                '考古學家': {
+                    name: '妮可·羅賓',
+                    age: 30,
+                    skills: ['眼花繚亂', '六十輪花', '百花繚亂', '萬紫千紅']
+                },
+                '船匠': {
+                    name: '佛朗基',
+                    age: 36,
+                    skills: ['佛朗基火球', '風來噴射', '鋼鐵海賊', '佛朗基將軍', '將軍砲']
+                },
+                '音樂家': {
+                    name: '布魯克',
+                    age: 90,
+                    skills: ['催眠曲·輪舞', '鼻唄三丁·矢筈斬', '冰凍劍', '哼歌·吹雪斬']
+                }
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div class="alert alert-info" ng-init="greeting='Hi,';name='男丁';">
+        <label>Message:</label>
+        <input type="text" ng-model="greeting" placeholder="Enter a message here">
+        <br>
+        <label>Name:</label>
+        <input type="text" ng-model="name" placeholder="Enter a name here">
+        <hr>
+        <h1>{{ greeting }} {{ name }}!!</h1>
+    </div>
+    <div class="alert alert-success">
+        <label>全選/全取消:
+            <input type="checkbox" ng-model="selectAll">
+        </label>
+        <input type="checkbox" ng-checked="selectAll">
+        <input type="checkbox" ng-checked="selectAll">
+        <input type="checkbox" ng-checked="selectAll">
+        <input type="checkbox" ng-checked="selectAll">
+        <input type="checkbox" ng-checked="selectAll">
+    </div>
+    <div class="alert">
+        <label>我同意
+            <input type="checkbox" ng-model="agree">
+        </label>
+        <input type="text" ng-disabled="!agree" value="abnet.tw">
+        <button class="btn btn-primary" ng-disabled="!agree">開始下載</button>
+    </div>
+    <div class="alert alert-error">
+        <label>唯讀
+            <input type="checkbox" ng-model="readonly">
+        </label>
+        <input type="text" ng-readonly="readonly" value="abnet.tw">
+        <textarea ng-readonly="readonly"></textarea>
+    </div>
+</body>
+
+</html>
