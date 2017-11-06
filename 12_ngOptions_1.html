@@ -1,0 +1,55 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngOptions (一))</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("SelectCtrl", function ($scope) {
+            $scope.onepiece = ['蒙其·D·魯夫', '羅羅亞·索隆', '娜美', '騙人布', '香吉士', '多尼多尼·喬巴', '妮可·羅賓', '佛朗基', '布魯克'];
+        });
+    </script>
+</head>
+
+<body>
+    <div class="span5" style="margin-top:20px;" ng-controller="SelectCtrl">
+        <div class="alertalert-info">
+            <!--label for value in array-->
+            <select ng-model="role1" ng-options="m for m in onepiece">
+                <option value="">--請選擇角色--</option>
+            </select>
+            <div ng-show="role1!=''">選擇的是:{{ role1 }}</div>
+            <hr>
+            <!--select as label for value in array-->
+            <select ng-model="role2" ng-options="i as m for (i, m) in onepiece">
+                <option value="">--請選擇角色--</option>
+            </select>
+            <div ng-show="role2!=''">選擇的是:{{ role2 }}</div>
+            <hr>
+            <!--select as label for value in array-->
+            <select ng-model="role3" ng-options="i as i +':'+ m for (i,m) in onepiece">
+                <option value="">--請選擇角色--</option>
+            </select>
+            <div ng-show="role3!=''">選擇的是:{{ role3 }}</div>
+            <hr>
+            <!--label group by group for value in array-->
+            <select ng-model="role4" ng-options="m group by i for (i, m) in onepiece">
+                <option value="">--請選擇角色--</option>
+            </select>
+            <div ng-show="role4!=''">選擇的是:{{ role4 }}</div>
+            <hr>
+            <!--select as label group by group for value in array-->
+            <select ng-model="role5" ng-options="i as m group by i for (i, m) in onepiece">
+                <option value="">--請選擇角色--</option>
+            </select>
+            <div ng-show="role4!=''">選擇的是:{{ role5 }}</div>
+        </div>
+    </div>
+</body>
+
+</html>
