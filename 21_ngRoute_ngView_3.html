@@ -1,0 +1,92 @@
+<!doctype html>
+<html ng-app="OnePeice">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ModulengRoute 與 ngView (一)</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var onePiece = angular.module("OnePeice", ['ngRoute'], function ($routeProvider) {
+            $routeProvider.when('/', {
+                templateUrl: '21_view.html'
+            }).when('/add', {
+                templateUrl: '21_add.html',
+                controller: 'AddCtrl'
+            }).when('/edit/:index', {//index會被放到$routeParams物件裡
+                templateUrl: '21_edit.html',
+                controller: 'EditCtrl'
+            }).when('/hello', {
+                templateUrl: '21_hello.html',
+                controller: 'GreetingCtrl'
+            }).when('/hello/:message', {//message會被放到$routeParams物件裡
+                templateUrl: '21_hello.html',
+                controller: 'GreetingCtrl'
+            }).when('/hello/:message/:index', {//message&index會被放到$routeParams物件裡
+                templateUrl: '21_hello.html',
+                controller: 'GreetingCtrl'
+            }).when('/hello/:message/:index/:word', {//message&index&word會被放到$routeParams物件裡
+                templateUrl: '21_hello.html',
+                controller: 'GreetingCtrl'
+            }).otherwise({
+                redirectTo: '/'//不符合以上條件則強迫載入指定的模板
+            });
+        });
+
+        onePiece.controller("OnePieceCtrl", function ($scope) {
+            $scope.friends = [{
+                name: '蒙其·D·魯夫',
+                reward: 400000000
+            }, {
+                name: '羅羅亞·索隆',
+                reward: 120000000
+            }, {
+                name: '娜美',
+                reward: 16000000
+            }, {
+                name: '騙人布',
+                reward: 30000000
+            }, {
+                name: '香吉士',
+                reward: 77000000
+            }, {
+                name: '多尼多尼·喬巴',
+                reward: 50
+            }, {
+                name: '妮可·羅賓',
+                reward: 80000000
+            }, {
+                name: '佛朗基',
+                reward: 44000000
+            }, {
+                name: '布魯克',
+                reward: 33000000
+            }];
+        }).controller("GreetingCtrl", function ($scope, $routeParams) {
+            $scope.greeting = $routeParams.message || 'Hi~';
+            $scope.index = $routeParams.index || 0;
+            $scope.word = $routeParams.word || '無話可說!!';
+        }).controller("EditCtrl", function ($scope, $routeParams) {
+            $scope.index = $routeParams.index;
+        }).controller("AddCtrl", function ($scope) {
+            $scope.add = function () {
+                $scope.friends.push({
+                    name:$scope.name,
+                    reward:$scope.reward
+                });
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="martin-top:20px;" ng-controller="OnePieceCtrl">
+        <h2>海賊王</h2>
+        <div ng-view></div>
+    </div>
+</body>
+
+</html>

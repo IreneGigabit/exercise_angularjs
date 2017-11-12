@@ -1,0 +1,74 @@
+<!doctype html>
+<html ng-app="OnePeice">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ModulengRoute 與 ngView (一)</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var onePiece = angular.module("OnePeice", ['ngRoute'], function ($routeProvider) {
+            $routeProvider.when('/', {
+                templateUrl: '19_view.html'
+            }).when('/edit', {
+                templateUrl: '19_edit.html'
+            }).when('/hello', {
+                templateUrl: '19_hello.html'
+            }).otherwise({
+                redirectTo: '/'
+            });
+        });
+
+        //另一種寫法
+        // var onePiece = angular.module("OnePeice", ['ngRoute']);
+        // onePiece.config(['$routeProvider', function ($routeProvider) {
+        //     $routeProvider.when('/', { templateUrl: '19_view.html' });
+        //     $routeProvider.when('/edit', { templateUrl: '19_edit.html' });
+        //     $routeProvider.when('/hello', { templateUrl: '19_hello.html' });
+        //     $routeProvider.otherwise({ redirectTo: '/' });
+        // }]);
+
+        onePiece.controller("OnePieceCtrl", function ($scope) {
+            $scope.friends = [{
+                name: '蒙其·D·魯夫',
+                reward: 400000000
+            }, {
+                name: '羅羅亞·索隆',
+                reward: 120000000
+            }, {
+                name: '娜美',
+                reward: 16000000
+            }, {
+                name: '騙人布',
+                reward: 30000000
+            }, {
+                name: '香吉士',
+                reward: 77000000
+            }, {
+                name: '多尼多尼·喬巴',
+                reward: 50
+            }, {
+                name: '妮可·羅賓',
+                reward: 80000000
+            }, {
+                name: '佛朗基',
+                reward: 44000000
+            }, {
+                name: '布魯克',
+                reward: 33000000
+            }];
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="martin-top:20px;" ng-controller="OnePieceCtrl">
+        <h2>海賊王</h2>
+        <div ng-view></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - Module</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var myApp = angular.module("myApp", []);
+        myApp.controller("Ctrl", ['$scope', function (new$scope) {
+            new$scope.name = '(新)男丁格爾';
+        }]);
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="martin-top:20px;" ng-controller="Ctrl">
+        {{ name }}
+    </div>
+</body>
+
+</html>
