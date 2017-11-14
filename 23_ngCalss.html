@@ -1,0 +1,119 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngCalss</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .even {
+            color: blue;
+        }
+
+        .odd {
+            color: green;
+        }
+    </style>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.cssObj = {
+                useRed: 'red',
+                useBold: 'bold',
+                useItalic: 'italic'
+            }
+
+            $scope.selected = 'useItalic';
+
+            $scope.friends = [{
+                name: '蒙其·D·魯夫',
+                reward: 400000000
+            }, {
+                name: '羅羅亞·索隆',
+                reward: 120000000
+            }, {
+                name: '娜美',
+                reward: 16000000
+            }, {
+                name: '騙人布',
+                reward: 30000000
+            }, {
+                name: '香吉士',
+                reward: 77000000
+            }, {
+                name: '多尼多尼·喬巴',
+                reward: 50
+            }, {
+                name: '妮可·羅賓',
+                reward: 80000000
+            }, {
+                name: '佛朗基',
+                reward: 44000000
+            }, {
+                name: '布魯克',
+                reward: 33000000
+            }];
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="margin-top:20px;" ng-init="cusClass='red';">
+        基本
+        <!--不建議用此方法
+            若是 angular.js 沒有載入成功或是還沒載入完的話，那麼會看到class="{{ cusClass }}""
+        -->
+        <div>男丁格爾 angular.js</div>
+        <!--建議使用ng-class
+            若是 angular.js 沒有載入成功或是還沒載入完的話，那麼就不會產生class屬性
+        -->
+        <div ng-class="cusClass">男丁格爾 angular.js(ng-class)</div>
+    </div>
+
+    <div class="well span4" style="margin-top:20px;" ng-init="red='red';bold='';italic='italic';">
+        陣列
+        <div ng-class="[red, bold, italic]">男丁格爾 angular.js(陣列)</div>
+    </div>
+
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        物件
+        <div ng-class="cssObj[selected]">男丁格爾 angular.js(物件)</div>
+    </div>
+
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        物件2
+        <label>
+            <input type="checkbox" ng-model="useRed" style="margin:0"> Red?</label>
+        <label>
+            <input type="checkbox" ng-model="useBold" style="margin:0"> Bold?</label>
+        <label>
+            <input type="checkbox" ng-model="useItalic" style="margin:0"> Italic?</label>
+        <div ng-class="{red:useRed,bold:useBold,italic:useItalic}">男丁格爾 angular.js(物件2)</div>
+    </div>
+
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        <ul>
+            ng-repeat
+            <li ng-repeat="person in friends" ng-class="$index % 2 ==0 ?'even':'odd';">
+                {{ person.name }}({{ person.reward | number }})
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
