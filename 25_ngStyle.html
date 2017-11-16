@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngStyle</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.myStyle1={};
+            $scope.getCSS=function(){
+                $scope.myStyle1= { color: 'red', fontSize: '24px', 'background-color': 'yellow' };
+            };
+            $scope.resetCSS=function(){
+                $scope.myStyle1= {};
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="margin-top:20px;" ng-init="myStyle={}">
+        <!--CSS屬性有"-"符號的要將"-"刪除並將後面的單字開頭變成大寫或用單引號包起來'font-size'-->
+        <input type="button" value="Set" class="btn btn-primary" ng-click="myStyle={color:'red',fontSize:'24px','background-color':'yellow'}">
+        <input type="button" value="Clear" class="btn btn-warning" ng-click="myStyle={}">
+        <br>
+        <br>
+        <div ng-style="myStyle">男丁格爾's 脫殼玩</div>
+        <pre>myStyle={{ myStyle }}</pre>
+    </div>
+
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        <!--CSS屬性有"-"符號的要將"-"刪除並將後面的單字開頭變成大寫或用單引號包起來'font-size'-->
+        <input type="button" value="Set" class="btn btn-primary" ng-click="getCSS()">
+        <input type="button" value="Clear" class="btn btn-warning" ng-click="resetCSS()">
+        <br>
+        <br>
+        <div ng-style="myStyle1">男丁格爾's 脫殼玩111</div>
+        <pre>myStyle1={{ myStyle1 }}</pre>
+    </div>
+
+</body>
+
+</html>

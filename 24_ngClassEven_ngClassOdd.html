@@ -1,0 +1,75 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngClassEven 與 ngClassOdd</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!--script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <style>
+        .even {
+            color: red;
+        }
+
+        .odd {
+            color: blue;
+        }
+    </style>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.friends = [{
+                name: '蒙其·D·魯夫',
+                reward: 400000000
+            }, {
+                name: '羅羅亞·索隆',
+                reward: 120000000
+            }, {
+                name: '娜美',
+                reward: 16000000
+            }, {
+                name: '騙人布',
+                reward: 30000000
+            }, {
+                name: '香吉士',
+                reward: 77000000
+            }, {
+                name: '多尼多尼·喬巴',
+                reward: 50
+            }, {
+                name: '妮可·羅賓',
+                reward: 80000000
+            }, {
+                name: '佛朗基',
+                reward: 44000000
+            }, {
+                name: '布魯克',
+                reward: 33000000
+            }];
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        <ul>
+            <li ng-repeat="person in friends" ng-class-even="'even'" ng-class-odd="'odd'">
+                {{ person.name }}({{ person.reward | number }})
+            </li>
+        </ul>
+        <table border="1">
+            <tr>
+                <td>name</td><td>reward</td>
+            </tr>
+            <tr ng-repeat="person in friends" ng-class-even="'even'" ng-class-odd="'odd'">
+                <td>{{ person.name }}</td>
+                <td>{{ person.reward | number }}</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+
+</html>
