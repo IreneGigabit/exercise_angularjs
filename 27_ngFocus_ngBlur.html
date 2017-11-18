@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - ngStyle</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.myStyle1 = {};
+            $scope.getCSS = function () {
+                $scope.myStyle1 = { color: 'red', fontSize: '24px', 'background-color': 'yellow' };
+            };
+            $scope.resetCSS = function () {
+                $scope.myStyle1 = {};
+            };
+        });
+    </script>
+    <style>
+        input[type="text"].myFocus{
+            background-color: yellow;
+        }
+        input[type="text"].myBlur{
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="well span4" style="margin-top:20px;" ng-init="focus=false;blur=false;">
+        <input type="text" ng-class="{myFocus:focus,myBlur:blur}" ng-focus="focus=true;blur=false;" ng-blur="blur=true;focus=false;">
+    </div>
+
+</body>
+
+</html>
