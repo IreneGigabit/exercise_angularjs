@@ -1,0 +1,43 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - 自訂過濾器</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope) {
+            $scope.text="hello KITTY";
+        });
+
+        app.filter('clean',function(){
+            return function(str, separator){
+                return str.toLowerCase().replace(/\s+/g, separator || '-');
+            };
+        });
+
+        app.filter('camel', function () {
+            return function (str) {
+                return str
+                    .replace(/\s(.)+/g, function ($1) { return $1.toLowerCase(); })//所有字轉小寫
+                    .replace(/\s(.)/g, function ($1) { return $1.toUpperCase(); })//空格後第一個字轉大寫
+                    .replace(/\s/g, '');//清除空格
+                    //.replace(/^(.)/, function ($1) { return $1.toLowerCase(); });;//第一個字轉小寫
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span4" style="margin-top:20px;" ng-controller="Ctrl">
+        {{ text | clean:'+'}}
+        <br>
+        {{ text | camel }}
+    </div>
+</body>
+
+</html>

@@ -11,13 +11,6 @@
     <script language="javascript">
         var app = angular.module("myApp", []);
         app.controller("Ctrl", function ($scope) {
-            $scope.myStyle1 = {};
-            $scope.getCSS = function () {
-                $scope.myStyle1 = { color: 'red', fontSize: '24px', 'background-color': 'yellow' };
-            };
-            $scope.resetCSS = function () {
-                $scope.myStyle1 = {};
-            };
         });
     </script>
     <style>
