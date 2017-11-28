@@ -1,0 +1,70 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>男丁格爾's 脫殼玩 - AngularJS 入門教學 - 宣告式語法的使用方式</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.6.6/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("FriendsCtrl", function ($scope) {
+            $scope.friends = [
+                { name: '男丁格爾', age: 18 },
+                { name: 'jelly', age: 16 },
+                { name: '梅干桑', age: 30 },
+                { name: '莫希爾', age: 31 }
+            ];
+        });
+    </script>
+</head>
+
+<body>
+    <div class="well span6" style="margin-top:20px;">
+        <input type="text" ng-model="name" placeholder="Enter a name here">
+
+        <div>
+            <b>ngBind="name"：</b>
+            <span ngBind="name"></span>
+        </div>
+        <div>
+            <b>ng-bind="name"：</b>
+            <span ng-bind="name"></span>
+        </div>
+        <div>
+            <b>ng:bind="name"：</b>
+            <span ng:bind="name"></span>
+        </div>
+        <div>
+            <b>ng_bind="name"：</b>
+            <span ng_bind="name"></span>
+        </div>
+        <div>
+            <b>x-ng-bind="name"：</b>
+            <span x-ng-bind="name"></span>
+        </div>
+        <div>
+            <b>data-ng-bind="name"：</b>
+            <span data-ng-bind="name"></span>
+        </div>
+    </div>
+
+    <div class="well span6" style="margin-top:20px;" ng-controller="FriendsCtrl">
+        <label>Search:</label>
+        <input type="text" ng-model="search">
+        <hr>
+        <h5>
+            <span ng-bind="friends.length"></span>
+        </h5>
+        <ul>
+            <!-- <li ng-repeat="friend in friends | filter:search">[{{ $index+1 }}] {{ friend.name }}({{ friend.age }})</li> -->
+            <!-- <li ng-repeat="friend in friends | filter:search" ng-bind-template="{{ friend.name }}({{ friend.age }})"></li> -->
+            <li ng-repeat="friend in friends | filter:search" data-ng-bind="friend.name+'('+friend.age+')'"></li>
+        </ul>
+    </div>
+</body>
+
+</html>
