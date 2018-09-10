@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive Class</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.directive("classDirective",function($log){
+            //返回前導指令定義物件
+            return {
+                restrict:'C',//只能當Class用
+                template:'<p>A class directive</p>',
+                link:function(scope,el,attrs){
+                    $log.log(el.html());
+                    //<p>A class directive</p>
+                    $log.log(el.hasClass('noremal-class'));
+                    //true
+                    $log.log(attrs.classDirective);
+                    //cval
+                    $log.log(attrs.someAttr);
+                    //myvalue
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <!--自訂class-->
+    <div class="class-directive: cval; normal-class" some-attr="myvalue">
+
+    </div>
+</body>
+
+</html>

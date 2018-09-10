@@ -1,0 +1,52 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive Attribute Bind Click</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.directive("vectorText", function ($document) {
+            //返回前導指令定義物件
+            return {
+                template: '<span>{{heading}}</span>',
+                link: function (scope, el, attrs) {
+                    //初始化CSS
+                    el.css({
+                        'background-color':'red',
+                        'float': 'left',
+                        'padding': attrs.buffer + 'px'
+                    });
+                    //初始化範圍變數
+                    scope.heading = '';
+
+                    //設定事件監聽器和處理器
+                    $document.on('mousemove', function (event) {
+                        //mousemove事件不會啟動$digest,由scope.$apply手動進行
+                        scope.$apply(function () {
+                            if (event.pageY < 300) {
+                                scope.heading = 'N';
+                            } else {
+                                scope.heading = 'S';
+                            }
+                            if (event.pageX < 300) {
+                                scope.heading += 'W';
+                            } else {
+                                scope.heading += 'E';
+                            }
+                        })
+                    });
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div buffer="300" vector-text></div>
+</body>
+
+</html>

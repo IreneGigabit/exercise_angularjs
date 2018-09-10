@@ -1,0 +1,37 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive Attribute</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.directive("attributeDirective",function($log){
+            //返回前導指令定義物件
+            return {
+                restrict:'A',//只能當犀性用
+                template:'<p>An attribute directive</p>',
+                link:function(scope,el,attrs){
+                    $log.log(el.html());
+                    //<p>An attribute directive</p>
+                    $log.log(attrs.attributeDirective);
+                    //aval
+                    $log.log(attrs.someAttr);
+                    //myvalue
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <!--自訂犀性-->
+    <div attribute-directive="aval" some-attr="myvalue">
+
+    </div>
+</body>
+
+</html>
