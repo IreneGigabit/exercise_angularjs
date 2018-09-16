@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive isolate scope</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("MainCtrl", function ($log, $scope) {
+            $scope.outerval = "mydata";
+            $scope.func = function () {
+                $log.log("invoked!");
+            };
+        });
+
+        app.directive("iso", function () {
+            //返回前導指令定義物件
+            return {
+                template:'Inner:{{innerval}}',
+                scope:{//隔離scope,無法繼承父範圍,也無法使用父範圍的方法或變數
+                    innerval:'@myattr'//字串
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="MainCtrl">
+        <input type="text" ng-model="outerval">
+        <div>Outer:{{outerval}}</div>
+        <div iso myattr="{{outerval}}"></div><!--將MainCtrl.outerval用參數myattr傳給directive-->
+    </div>
+</body>
+
+</html>

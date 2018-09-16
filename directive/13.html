@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive Directive隔離scope</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller('MainCtrl',function($scope){
+            $scope.overwrite=false;
+            $scope.origin='parent controller';
+        })
+
+        app.directive("myDirective", function () {
+            //返回前導指令定義物件
+            return {
+                replace:true,
+                scope:{},
+                template:'<div>'+
+                        '<p>Directive template</p>' +
+                        '<p>Scope from {{ origin }}</p>' +
+                        '<p>Overwritten? {{ overwrite }}</p>' +
+                        '</div>',
+                link:function(scope){
+                    scope.overwrite=!!scope.origin;
+                    scope.origin='link function';
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="MainCtrl">
+        parent.origin={{origin}}<hr>
+        <my-directive>
+            Stuff inside
+        </my-directive>
+    </div>
+</body>
+
+</html>

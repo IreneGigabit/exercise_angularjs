@@ -1,0 +1,88 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂Directive Directive的遞迴</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller('MainCtrl', function ($scope) {
+            $scope.data = {
+                text: 'Primates',
+                items: [
+                    {
+                        text: 'Anthoropoidea',
+                        items: [
+                            {
+                                text: 'New World Anthropoids'
+                            },
+                            {
+                                text: 'Old World Anthropoids',
+                                items: [
+                                    {
+                                        text: 'Apes',
+                                        items: [
+                                            { text: 'Lesser Apes' },
+                                            { text: 'Greater Apes' }
+                                        ]
+                                    }, {
+                                        text: 'Monkeys'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    { text: 'Prosimii' }
+                ]
+            };
+        });
+
+        app.directive("tree", function ($compile,$templateCache) {
+            //返回前導指令定義物件
+            return {
+                restrict: 'E',
+                scope: {
+                    val: '=',
+                    parentData: '='
+                },
+                transclude: true,
+                link: function (scope,el,attrs) {
+                    scope.isParent=angular.isArray(scope.val.items);
+                    scope.delSubtree=function(){
+                        if(scope.parentData){
+                            scope.parentData.splice(
+                                scope.parentData.indexOf(scope.val),1
+                            );
+                        }
+                        scope.val={};
+                    }
+                    el.replaceWith(
+                        $compile(
+                            $templateCache.get('recursive.html')
+                        )(scope)
+                    );
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="MainCtrl">
+        <tree val="data"></tree>
+
+        <script type="text/ng-template" id="recursive.html">
+            <span>{{val.text}}</span>
+            <button ng-click="delSubtree()">delete</button>
+            <ul ng-if="isParent" style="margin-left:30px">
+                <li ng-repeat="item in val.items">
+                    <tree val="item" parent-data="val.items"></tree>
+                </li>
+            </ul>
+        </script>
+    </div>
+</body>
+
+</html>
