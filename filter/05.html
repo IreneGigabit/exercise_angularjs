@@ -1,0 +1,26 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter-javascript</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope, $filter) {
+            $scope.val=1234.56789;
+            $scope.filteredVal=$filter('number')($scope.val,4);
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <p>{{val|number:4}}</p>
+        <p>{{filteredVal}}</p>
+    </div>
+</body>
+
+</html>

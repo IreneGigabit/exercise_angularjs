@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter-number & currency</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.data = {
+                bignum:1000000,
+                num:1.0,
+                smallnum:0.9999,
+                tinynum:0.0000001
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <p>{{data.bignum}}={{data.bignum|number}}</p>
+        <p>{{data.num}}={{data.num|number}}</p>
+        <p>{{data.smallnum}}={{data.smallnum|number}}</p>
+        <p>{{data.tinynum}}={{data.tinynum|number}}</p>
+        <hr>
+        <p>{{data.smallnum}}={{data.smallnum|number:4}}</p>
+        <p>{{data.tinynum}}={{data.tinynum|number:7}}</p>
+        <p>012345.6789={{012345.6789|number:2}}</p>
+        <hr>
+        <p>1234.56={{1234.56|currency}}</p>
+        <p>0.02={{0.02|currency}}</p>
+        <p>45682.78={{45682.78|currency}}</p>
+    </div>
+</body>
+
+</html>

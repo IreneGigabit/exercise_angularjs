@@ -1,0 +1,34 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter-date</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.data = {
+                unix:1394787566535,
+                iso:'2014-03-14T08:59:26Z',
+                date:new Date(2014,2,14,1,59,26,535)
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <p>{{data.unix}}={{data.unix|date}}</p>
+        <p>{{data.iso}}={{data.iso|date}}</p>
+        <p>{{data.date}}={{data.date|date}}</p>
+        <hr>
+        <p>{{data.unix}}={{data.unix|date:"EEEE 'at' H:mma"}}</p>
+        <p>{{data.iso}}={{data.iso|date:"longDate"}}</p>
+        <p>{{data.date}}={{data.date|date:"M/d H:m:s.sss"}}</p>
+    </div>
+</body>
+
+</html>

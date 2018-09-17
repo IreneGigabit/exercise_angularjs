@@ -1,0 +1,34 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter-json</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.user = {
+                id:123,
+                name:{
+                    first:'Jake',
+                    last:'Hsu'
+                },
+                username:'papatango',
+                friendIds:[5,13,3,1,2,8,21],
+                //帶有$$前置字元的屬性將被排除
+                $$no_show:'Hide me!'
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <p>{{user|json}}</p>
+    </div>
+</body>
+
+</html>
