@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Service值</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope, MyValue) {
+            $scope.data = MyValue;
+            $scope.update = function () {
+                MyValue.name = 'Brandon Marshall';
+            };
+        });
+
+        app.value('MyValue',{
+            name:'Tim Tebow',
+            number:15
+        })
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="update()">Update</button>
+            {{data.name}} {{data.number}}
+    </div>
+</body>
+
+</html>

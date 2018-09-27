@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Service常數</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        //constant跟value比可注入config或其他的服務提供器
+        app.config(function (MyConstant) {
+            //無法注入$log至config()
+            console.log(MyConstant);
+        });
+
+        app.controller("Ctrl", function ($scope, MyConstant) {
+            $scope.data = MyConstant;
+            $scope.update = function () {
+                MyConstant.name = 'Brandon Marshall';
+            };
+        });
+
+        app.constant('MyConstant', {
+            name: 'Tim Tebow',
+            number: 15
+        })
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="update()">Update</button>
+        {{data.name}} {{data.number}}
+    </div>
+</body>
+
+</html>

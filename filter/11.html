@@ -1,0 +1,89 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>從頭建立自訂搜尋Filter</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.filter("simpletruncate", function () {
+            //文字參數
+            return function (text, limit, stoptext) {
+                var regex = /\s/;//空白字元
+                if (!angular.isDefined(limit)) {//若沒設定長度則預設為20
+                    limit = 20;
+                }
+                if (!angular.isDefined(stoptext)) {//若沒設定載斷字元則預設為...
+                    stoptext = "...";
+                }
+                limit = Math.min(limit, text.length);
+
+                var truncated = text.slice(0, limit);
+                if (text.length > limit) {
+                    truncated += stoptext;
+                }
+                return truncated;
+            };
+        });
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.users = [
+                {
+                    firstName: 'John',
+                    lastName: 'Stockton',
+                    number: '12'
+                },
+                {
+                    firstName: 'Michael',
+                    lastName: 'Jordan',
+                    number: '23'
+                },
+                {
+                    firstName: 'Allen',
+                    lastName: 'Iverson',
+                    number: '3'
+                }
+            ];
+
+            $scope.usermatch = function (user) {
+                if (!angular.isDefined(user) || !angular.isDefined($scope.search)) {
+                    return false;
+                }
+
+                var nameMatch = false, numberMatch = false;
+                if (angular.isDefined($scope.search.name) && $scope.search.name.length > 0) {
+                    if (angular.isDefined(user.firstName)) {
+                        nameMatch = nameMatch || user.firstName.indexOf($scope.search.name) > -1;
+                    }
+                    if (angular.isDefined(user.lastName)) {
+                        nameMatch = nameMatch || user.lastName.indexOf($scope.search.name) > -1;
+                    }
+                }
+
+                if (angular.isDefined(user.number) && angular.isDefined($scope.search.number)) {
+                    numberMatch = user.number === $scope.search.number;
+                }
+
+                return nameMatch || numberMatch;//or組合,任一符合就回傳
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <!--搜尋物件整理,而非特定屬性,不會與其他使用特定屬性搜尋的欄位衝突-->
+        <input type="text" ng-model="search.name" required>
+        <!--明確使用number屬性-->
+        <input type="text" ng-model="search.number" required>
+        <p ng-repeat="user in users | filter:usermatch">
+            {{user.firstName}} {{user.lastName}} {{user.number}}
+        </p>
+    </div>
+</body>
+
+</html>

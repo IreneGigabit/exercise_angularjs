@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂 搜尋Filter1</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.filter("simpletruncate", function () {
+            //文字參數
+            return function (text, limit, stoptext) {
+                var regex = /\s/;//空白字元
+                if (!angular.isDefined(limit)) {//若沒設定長度則預設為20
+                    limit = 20;
+                }
+                if (!angular.isDefined(stoptext)) {//若沒設定載斷字元則預設為...
+                    stoptext = "...";
+                }
+                limit = Math.min(limit, text.length);
+
+                var truncated = text.slice(0, limit);
+                if (text.length > limit) {
+                    truncated += stoptext;
+                }
+                return truncated;
+            };
+        });
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.users=[
+                {
+                    firstName:'John',
+                    lastName:'Stockton'
+                },
+                {
+                    firstName: 'Michael',
+                    lastName: 'Jordan'
+                }
+            ]
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <input type="text" ng-model="search.firstName">
+        <p ng-repeat="user in users | filter:search">
+            {{user.firstName}} {{user.lastName}}
+        </p>
+    </div>
+</body>
+
+</html>

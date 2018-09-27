@@ -1,0 +1,53 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自訂 搜尋Filter2</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.controller("Ctrl", function ($scope) {
+            $scope.users = [
+                {
+                    firstName: 'John',
+                    lastName: 'Stockton',
+                    number: '12'
+                },
+                {
+                    firstName: 'Michael',
+                    lastName: 'Jordan',
+                    number: '23'
+                },
+                {
+                    firstName: 'Allen',
+                    lastName: 'Iverson',
+                    number: '3'
+                }
+            ]
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <!--搜尋物件整理,而非特定屬性,不會與其他使用特定屬性搜尋的欄位衝突-->
+        <input type="text" ng-model="search.$" required>
+        <!--明確使用number屬性-->
+        <input type="text" ng-model="search.number" required>
+        <HR>
+        精確比對<BR>
+        <p ng-repeat="user in users | filter:search:true">
+            {{user.firstName}},{{user.lastName}},{{user.number}}
+        </p>
+        <HR>
+        模糊比對<BR>
+        <p ng-repeat="user in users | filter:search">
+            {{user.firstName}},{{user.lastName}},{{user.number}}
+        </p>
+    </div>
+</body>
+
+</html>
