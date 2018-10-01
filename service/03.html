@@ -1,0 +1,45 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Service工廠</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope, MyFactory) {
+            $scope.data = MyFactory.getPlayer();
+            $scope.update = MyFactory.swapPlayer;
+        });
+
+        app.factory('MyFactory', function () {
+            //私有變數及函數
+            var player = {
+                name: 'Peyton Manning',
+                number: 18
+            },swap = function () {
+                player.name = 'A.J. Green';
+            };
+
+            //公共API
+            return {
+                getPlayer: function () {
+                    return player;
+                },
+                swapPlayer: function () {
+                    swap();
+                }
+            };
+        })
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="update()">Update</button>
+        {{data.name}} #{{data.number}}
+    </div>
+</body>
+
+</html>

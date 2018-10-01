@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用Service</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+        app.controller("Ctrl", function ($scope, MyService) {
+            $scope.data = MyService.getPlayer();
+            $scope.update = MyService.swapPlayer;
+        });
+
+        app.service('MyService', function () {
+            var player = {
+                name: 'Philip Rivers',
+                number: 17
+            }, swap = function () {
+                player.name = 'Alshon Jeffery';
+            };
+
+            this.getPlayer = function () {
+                return player;
+            };
+            this.swapPlayer = function () {
+                swap();
+            };
+        })
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="update()">Update</button>
+        {{data.name}} #{{data.number}}
+    </div>
+</body>
+
+</html>
