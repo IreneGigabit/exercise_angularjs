@@ -1,0 +1,63 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>建立addClass動畫-Javascript動畫</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate']);
+
+        app.controller('Ctrl', function ($scope) {
+            $scope.displayToggle = true;
+        });
+
+        app.animation('.animate-container', function () {
+            return {
+                addClass: function (element, className, done) {
+                    if (className === 'ng-hide') {
+                        $(element)
+                            .removeClass('ng-hide')
+                            .css('opacity', 1)
+                            .animate(
+                                { 'opacity': 0 },
+                                1000,
+                                function () {
+                                    $(element)
+                                        .addClass('ng-hide')
+                                        .css('opacity', 1);
+                                    done();
+                                }
+                            )
+                    } else {
+                        done();
+                    }
+                }
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="displayToggle=!displayToggle">Toggle Visibility</button>
+        <div class="animate-container" ng-show="displayToggle">
+            Fade me out!
+        </div>
+    </div>
+    <pre>
+    <hr>
+        ngShow：當ngShow(加入類別)運算式為真、並在內容設為可見之前，便觸發addClass事件。
+        ngHide：當ngHide運算式不為真、並在內容設為可見之前，便觸發addClass事件。
+        ngClass：當套用類別至元素之前觸發addClass事件。
+        ngForm：會觸發addClass事件以加入驗證類別。
+        ngModel：會觸發addClass事件以加入驗證類別。
+        ngMessages：在一筆或多筆訊息出現時觸發addClass事件以加入ng-active類別，或者在沒有任何訊息時觸發addClass事件以加入ng-inactive類別。
+    </pre>
+</body>
+
+</html>

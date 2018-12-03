@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>使用Service提供器</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <script language="javascript">
+        var app = angular.module("myApp", []);
+
+        app.config(function ($provide) {
+            $provide.decorator('Player',function($delegate){
+                //$delegate是Player的服務實例
+                $delegate.setPlayer('Eli Manning');
+                return $delegate;
+            })
+        });
+
+        app.controller("Ctrl", function ($scope, Player) {
+            $scope.data = Player.getPlayer();
+            $scope.update = Player.swapPlayer;
+        });
+
+        app.factory('Player', function () {
+            var player = {
+                number: 10
+            }, swap = function () {
+                player.name = 'DeSean Jackson';
+            };
+            
+            return {
+                setPlayer: function (newName) {
+                    player.name = newName;
+                },
+                getPlayer: function () {
+                    return player;
+                },
+                swapPlayer: function () {
+                    swap();
+                }
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="update()">Update</button>
+        {{data.name}} #{{data.number}}
+    </div>
+</body>
+
+</html>

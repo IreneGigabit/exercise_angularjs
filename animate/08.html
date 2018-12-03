@@ -1,0 +1,130 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>建立leave及並行動畫-CSS3動畫</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-route.min.js"></script>
+    <style>
+        .link-container {
+    position:absolute;
+    top:320px;
+}
+.animate-container {
+    position:absolute;
+}
+.animate-container div {
+    width:300px;
+    text-align:center;
+    line-height:300px;
+    border:1px solid black;
+}
+.animate-container.ng-enter {
+    animation: 1s view-enter;
+    -webkit-animation: 1s view-enter;
+}
+.animate-container.ng-leave {
+    animation: 0.5s view-leave;
+    -webkit-animation: 0.5s view-leave;
+}
+@keyframes view-enter {
+    0%, 50% {
+        top:-300px;
+    }
+    100% {
+        top:0px;
+    }
+}
+@keyframes view-leave {
+    0% {
+        top:0px;
+    }
+    100% {
+        top:-300px;
+    }
+}
+@-webkit-keyframes view-enter {
+    0%, 50% {
+        top:-300px;
+    }
+    100% {
+        top:0px;
+    }
+}
+@-webkit-keyframes view-leave {
+    0% {
+        top:0px;
+    }
+    100% {
+        top:-300px;
+    }
+}
+    </style>
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate', 'ngRoute']);
+
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when('/bar', {
+                    templateUrl: 'bar.html'
+                })
+                .otherwise({
+                    templateUrl: 'foo.html'
+                });
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <ng-view class="animate-container"></ng-view>
+        <div class="link-container">
+            <a href="#!/foo">Foo</a>
+            <a href="#!/bar">Bar</a>
+        </div>
+
+        <script type="text/ng-template" id="foo.html">
+            <div>
+                <span>Foo</span>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="bar.html">
+            <div>
+                <span>Bar</span>
+            </div>
+        </script>
+    </div>
+    <pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <hr>
+        ngIf：在DOM移除ngIf的內容之前觸發leave事件。
+        ngInclude：當既有所含括的內容需要加入動畫時，便觸發leave事件。
+        ngRepeat：當從清單移除一個項目，或過濾掉某個項目時，便觸發leave事件。
+        ngSwitch：當ngSwitch的內容改變之後，並在DOM移除先前的內容之前，便觸發leave事件。
+        ngView：當既有的ngView內容需要加入動畫時，便觸發leave事件。
+        ngMessage：當移除內部訊息時，便觸發leave事件。
+    </pre>
+</body>
+
+</html>

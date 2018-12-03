@@ -1,0 +1,62 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>建立enter動畫-CSS3動畫</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/i18n/angular-locale_zh-tw.js"></script>
+    <style>
+        .target.ng-enter {
+            transition: 1s target-enter;
+            -webkit-animation: 1s target-enter;
+        }
+
+        @keyframe target-enter {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes target-enter {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate']);
+
+        app.controller('Ctrl', function ($scope) {
+            $scope.visible = true;
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="visible=!visible">Toggle</button>
+        <span class="target" ng-if="visible">Bring me in!</span>
+    </div>
+    <hr>
+    <pre>
+        ngIf：當ngIf的內容改變時便觸發enter事件，然後建立一個新的DOM元素，並且注入至ngIf容器。
+        ngInclude：當帶入新的內容至瀏覽器時，便觸發enter事件。
+        ngRepeat：當加入新項目到清單中，或當過濾器篩選出某個項目時，便觸發enter事件。
+        ngSwitch：當ngSwitch的內容改變，而相符的子元素置於容器內部時，便觸發enter事件。
+        ngView：當需要帶入全新的內容至瀏器時，便觸發enter事件。
+        ngMessage：當附加內部訊息時，便觸發enter事件。
+    </pre>
+</body>
+
+</html>

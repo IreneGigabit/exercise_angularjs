@@ -1,0 +1,90 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>建立removeClass動畫-CSS3動畫</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <style>
+        .container {
+            background-color: black;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .prompt {
+            position: absolute;
+            margin: 10px;
+            font-family: courier;
+            color: lime;
+        }
+
+        .cover {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            left: 200px;
+            background-color: black;
+        }
+
+        .blackout {
+            left: 0;
+        }
+
+        .blackout-remove {
+            animation: 1s slide-out;
+            -webkit-animation: 1s slide-out;
+        }
+
+        @keyframes slide-out {
+            0% {
+                left: 0;
+            }
+
+            100% {
+                left: 200px;
+            }
+        }
+
+        @-webkit-keyframes slide-out {
+            0% {
+                left: 0;
+            }
+
+            100% {
+                left: 200px;
+            }
+        }
+    </style>
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate']);
+
+        app.controller('Ctrl', function ($scope) {
+            $scope.displayToggle = true;
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <button ng-click="displayToggle=!displayToggle">Toggle Visibility</button>
+        <div class="container">
+            <span class="prompt">Wake up, Neo...</span>
+            <div class="cover" ng-class="{blackout:displayToggle}"></div>
+        </div>
+    </div>
+    <pre>
+    <hr>
+        ngShow：當ngShow運算式不為真、並在內容設為隱藏之前，便觸發removeClass事件。
+        ngHide：當ngHide運算式為真、並在內容設為隱藏之前，便觸發removeClass事件。
+        ngClass：當元素移除類別之前觸發removeClass事件。
+        ngForm：會觸發removeClass事件以移除驗證類別。
+        ngModel：會觸發removeClass事件以移除驗證類別。
+        ngMessages：在一筆或多筆訊息出現時觸發removeClass事件以移除ng-inactive類別，或者在沒有任何訊息時觸發addClass事件以加入ng-active類別。
+    </pre>
+</body>
+
+</html>

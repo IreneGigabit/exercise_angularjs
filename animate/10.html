@@ -1,0 +1,107 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>建立move動畫-CSS3轉換</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <style>
+        .animate-container {
+            position:relative;
+            margin-bottom:-1px;
+            width: 300px;
+            text-align:center;
+            border:1px solid black;
+            line-height:40px;
+        }
+        
+        .repeat-container {
+            position:absolute;
+        }
+
+        .animate-container.ng-move {
+            transition: all 1s;
+            opacity: 0;
+            max-height: 0;
+        }
+
+        .animate-container.ng-move-active{
+            opacity: 1;
+            max-height: 40px;
+        }
+
+        .animate-container.ng-enter{
+            transition: left 0.5s,  max-height 1s;
+            left:-300px;
+            max-height:0;
+        }
+
+         .animate-container.ng-enter-active{
+            left:0px;
+            max-height:40px;
+        }
+        
+        .animate-container.ng-leave{
+            transition: left 0.5s, max-height 1s;
+            left:0px;
+            max-height:40px;
+        }
+
+        .animate-container.ng-leave-active{
+            left:-300px;
+            max-height:0px;
+        }
+    </style>
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate']);
+
+        app.controller('Ctrl', function ($scope) {
+            $scope.arr = [10, 15, 25, 40, 45];
+
+            //實作Knuth的就地洗牌
+            function knuthShuffle(a) {
+                for (var i = a.length, j, k; i;
+                    j = Math.floor(Math.random() * i),
+                    k = a[--i],
+                    a[i] = a[j],
+                    a[j] = k);
+                return a;
+            }
+
+            $scope.shuffle = function () {
+                $scope.arr = knuthShuffle($scope.arr);
+            };
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <div class="repeat-container">
+            <input type="text" ng-modal="search.val">
+            <button ng-click="shuffle()">Shuffle</button>
+            <div ng-repeat="el in arr | filter:search.val" class="animate-container">
+                <span>{{ el }}</span>
+            </div>
+        </div>
+    </div>
+    <pre>
+
+
+
+
+
+
+
+
+
+
+
+    <hr>
+        ngRepeat將同時觸發enter、leave、與move事件，因此動畫的定義必須考量到這點，以免動畫特效發生衝突。
+    </pre>
+</body>
+
+</html>

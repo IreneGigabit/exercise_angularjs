@@ -1,0 +1,72 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>錯開批次動畫-CSS3轉換</title>
+    <script src="https://code.angularjs.org/1.7.4/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.7.4/angular-animate.min.js"></script>
+    <style>
+        .container {
+            line-height: 30px;
+        }
+
+        .container.ng-enter,
+        .container.ng-leave,
+        .container.ng-move {
+            transition: all linear 0.2s;
+        }
+
+        .container.ng-enter,
+        .container.ng-leave.ng-leave-active,
+        .container.ng-move {
+            opacity: 0;
+            max-height: 0;
+        }
+
+        .container.ng-enter.ng-enter-active,
+        .container.ng-leave,
+        .container.ng-move.ng-move-active {
+            opacity: 1;
+            max-height: 30px;
+        }
+
+        .container.ng-enter-stagger,
+        .container.ng-leave-stagger,
+        .container.ng-move-stagger{
+            transition-delay: 0.2s;
+            transition-duration: 0;
+        }
+    </style>
+
+    <script language="javascript">
+        var app = angular.module("myApp", ['ngAnimate']);
+
+        app.controller('Ctrl', function ($scope) {
+            $scope.names = [
+                'Jake',
+                'Henry',
+                'Roger',
+                'Joe',
+                'Rovert',
+                'John',
+            ];
+        });
+    </script>
+</head>
+
+<body>
+    <div ng-controller="Ctrl">
+        <input type="text" ng-model="search">
+        <div ng-repeat="name in names | filter:search" class="container">
+            {{ name }}
+        </div>
+    </div>
+
+    <pre>
+    <hr>
+        -stagger類別的行為有如連續動畫之間的墊片。並非平行處理所有動畫，而是依序執行，並藉由額外的交錯轉換進行控制。
+    </pre>
+</body>
+
+</html>
